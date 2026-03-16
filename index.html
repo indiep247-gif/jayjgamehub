@@ -338,11 +338,26 @@
   const musicBtn = document.getElementById('music-btn');
   const musicBars = document.getElementById('music-bars');
 
+  audio.addEventListener('error', (e) => {
+    musicBtn.textContent = '❌';
+    console.error('Audio error:', audio.error);
+    alert('Audio error: ' + (audio.error ? audio.error.message : 'unknown') + ' | src: ' + audio.currentSrc);
+  });
+
+  audio.addEventListener('canplaythrough', () => {
+    console.log('Audio ready to play');
+  });
+
   musicBtn.addEventListener('click', () => {
+    console.log('Click — paused:', audio.paused, 'src:', audio.currentSrc, 'readyState:', audio.readyState);
     if (audio.paused) {
-      audio.play();
-      musicBtn.textContent = '⏸';
-      musicBars.classList.add('playing');
+      audio.play().then(() => {
+        musicBtn.textContent = '⏸';
+        musicBars.classList.add('playing');
+      }).catch(err => {
+        alert('Play failed: ' + err.message);
+        console.error('Play error:', err);
+      });
     } else {
       audio.pause();
       musicBtn.textContent = '▶';
