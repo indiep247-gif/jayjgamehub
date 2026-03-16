@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JayJ Game Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: #f7f3ee;
+      font-family: 'Nunito', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 60px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .logo {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(38px, 8vw, 64px);
+      color: #1a1a2e;
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+
+    .logo span { color: #e8401c; }
+
+    .sub {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #aaa;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
+      gap: 24px;
+      justify-content: center;
+      width: 100%;
+      max-width: 1040px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 0 #ddd6ce, 0 6px 20px rgba(0,0,0,0.06);
+      transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 0 #ddd6ce, 0 14px 30px rgba(0,0,0,0.1);
+    }
+
+    .card-strip { height: 6px; }
+    .c1 .card-strip { background: #e8401c; }
+    .c2 .card-strip { background: #0a9e88; }
+    .c3 .card-strip { background: #f5a623; }
+
+    .card-emoji {
+      font-size: 56px;
+      text-align: center;
+      padding: 28px 20px 16px;
+      line-height: 1;
+    }
+
+    .card-body {
+      padding: 0 24px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 22px;
+      color: #1a1a2e;
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 13.5px;
+      color: #999;
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 18px;
+    }
+
+    .counter-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      background: #f7f3ee;
+      border-radius: 10px;
+      padding: 8px 12px;
+    }
+
+    .counter-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #bbb;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .counter-val {
+      font-family: 'Fredoka One', cursive;
+      font-size: 16px;
+      margin-left: auto;
+      color: #555;
+      min-width: 28px;
+      text-align: right;
+      transition: transform 0.15s cubic-bezier(0.34,1.56,0.64,1);
+      display: inline-block;
+    }
+
+    .counter-val.pop { transform: scale(1.4); }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 18px;
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: filter 0.15s, transform 0.1s;
+    }
+    .btn:hover { filter: brightness(1.08); }
+    .btn:active { transform: scale(0.97); }
+
+    .c1 .btn { background: #e8401c; color: #fff; }
+    .c2 .btn { background: #0a9e88; color: #fff; }
+    .c3 .btn { background: #f5a623; color: #fff; }
+
+    footer {
+      margin-top: 56px;
+      font-size: 12px;
+      color: #ccc;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">JayJ <span>Game Hub</span></div>
+  <div class="sub">Pick a game &amp; play</div>
+</header>
+
+<div class="grid">
+
+  <div class="card c1">
+    <div class="card-strip"></div>
+    <div class="card-emoji">🏀</div>
+    <div class="card-body">
+      <div class="card-title">JayJ Ball Game</div>
+      <div class="card-desc">Classic ball game action — test your reflexes and aim for the high score.</div>
+      <div class="counter-row">
+        <span class="counter-label">👆 Plays</span>
+        <span class="counter-val" id="count-ball">0</span>
+      </div>
+      <a href="http://jayjballgame.uk" target="_blank" rel="noopener" class="btn" data-game="ball">
+        Play Now <span>→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="card c2">
+    <div class="card-strip"></div>
+    <div class="card-emoji">🏥</div>
+    <div class="card-body">
+      <div class="card-title">Dr Rohan's Hospital</div>
+      <div class="card-desc">Run your own hospital — diagnose, treat, and keep everyone alive.</div>
+      <div class="counter-row">
+        <span class="counter-label">👆 Plays</span>
+        <span class="counter-val" id="count-hospital">0</span>
+      </div>
+      <a href="https://drrohanshospital.vercel.app/" target="_blank" rel="noopener" class="btn" data-game="hospital">
+        Play Now <span>→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="card c3">
+    <div class="card-strip"></div>
+    <div class="card-emoji">⭐</div>
+    <div class="card-body">
+      <div class="card-title">JayJAmon</div>
+      <div class="card-desc">Jump, explore, and collect — a bright adventure that never gets old.</div>
+      <div class="counter-row">
+        <span class="counter-label">👆 Plays</span>
+        <span class="counter-val" id="count-jamon">0</span>
+      </div>
+      <a href="https://jayjamon.vercel.app/" target="_blank" rel="noopener" class="btn" data-game="jamon">
+        Play Now <span>→</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer>jayj game hub &nbsp;·&nbsp; all games in one place</footer>
+
+<script>
+  const KEYS = { ball: 'jayj_clicks_ball', hospital: 'jayj_clicks_hospital', jamon: 'jayj_clicks_jamon' };
+
+  function getCount(game) {
+    return parseInt(localStorage.getItem(KEYS[game]) || '0', 10);
+  }
+
+  function setCount(game, val) {
+    localStorage.setItem(KEYS[game], val);
+  }
+
+  // Load saved counts on page load
+  ['ball', 'hospital', 'jamon'].forEach(g => {
+    document.getElementById('count-' + g).textContent = getCount(g);
+  });
+
+  // Increment on click
+  document.querySelectorAll('.btn[data-game]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const game = btn.dataset.game;
+      const newVal = getCount(game) + 1;
+      setCount(game, newVal);
+
+      const el = document.getElementById('count-' + game);
+      el.textContent = newVal;
+      el.classList.remove('pop');
+      void el.offsetWidth;
+      el.classList.add('pop');
+      setTimeout(() => el.classList.remove('pop'), 250);
+    });
+  });
+</script>
+</body>
+</html>
