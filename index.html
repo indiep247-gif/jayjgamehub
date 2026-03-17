@@ -211,6 +211,107 @@
     .music-bars.playing span:nth-child(3) { animation: bar 0.8s ease-in-out infinite 0.3s; }
     .music-bars.playing span:nth-child(4) { animation: bar 0.8s ease-in-out infinite 0.45s; }
     @keyframes bar { 0%,100% { height: 4px; } 50% { height: 14px; } }
+
+    /* ── SUGGESTIONS ── */
+    .suggestions-wrap {
+      width: 100%;
+      max-width: 600px;
+      margin: 48px auto 0;
+    }
+
+    .suggestions-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 26px;
+      color: #1a1a2e;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .suggestions-sub {
+      font-size: 13px;
+      color: #aaa;
+      text-align: center;
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+
+    .suggestions-form {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 4px 0 #ddd6ce, 0 6px 20px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .suggestions-form textarea {
+      width: 100%;
+      border: 2px solid #f0ebe4;
+      border-radius: 12px;
+      padding: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      color: #1a1a2e;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+      background: #faf8f5;
+      min-height: 100px;
+    }
+
+    .suggestions-form textarea:focus { border-color: #e8401c; }
+    .suggestions-form textarea::placeholder { color: #ccc; }
+
+    .suggestions-form button {
+      align-self: flex-end;
+      background: #e8401c;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      transition: filter 0.15s, transform 0.1s;
+    }
+
+    .suggestions-form button:hover { filter: brightness(1.1); }
+    .suggestions-form button:active { transform: scale(0.97); }
+    .suggestions-form button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .suggestions-success {
+      text-align: center;
+      font-weight: 700;
+      color: #0a9e88;
+      font-size: 14px;
+      display: none;
+    }
+
+    .suggestions-list {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .suggestion-item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      color: #555;
+      box-shadow: 0 2px 0 #ddd6ce, 0 3px 10px rgba(0,0,0,0.04);
+      line-height: 1.5;
+    }
+
+    .suggestion-item .s-date {
+      font-size: 11px;
+      color: #ccc;
+      font-weight: 700;
+      margin-top: 6px;
+    }
   </style>
 </head>
 <body>
@@ -273,6 +374,17 @@
     </div>
   </div>
 
+</div>
+
+<div class="suggestions-wrap">
+  <div class="suggestions-title">💬 Suggestions</div>
+  <div class="suggestions-sub">Got an idea? Let us know!</div>
+  <div class="suggestions-form">
+    <textarea id="suggestion-input" placeholder="Suggest a game, report a bug, or just say hi..."></textarea>
+    <button id="suggestion-btn">Send →</button>
+    <div class="suggestions-success" id="suggestion-success">✅ Thanks for your suggestion!</div>
+  </div>
+  <div class="suggestions-list" id="suggestions-list"></div>
 </div>
 
 <footer>jayj game hub &nbsp;·&nbsp; all games in one place</footer>
@@ -378,6 +490,52 @@
       musicBtn.textContent = '▶';
       musicBars.classList.remove('playing');
     }
+  });
+  // Suggestions
+  async function loadSuggestions() {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/suggestions?select=message,created_at&order=created_at.desc&limit=10`, {
+      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
+    });
+    const rows = await res.json();
+    const list = document.getElementById('suggestions-list');
+    list.innerHTML = '';
+    rows.forEach(row => {
+      const date = new Date(row.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      const item = document.createElement('div');
+      item.className = 'suggestion-item';
+      item.innerHTML = `<div>${row.message}</div><div class="s-date">${date}</div>`;
+      list.appendChild(item);
+    });
+  }
+
+  loadSuggestions();
+
+  document.getElementById('suggestion-btn').addEventListener('click', async () => {
+    const input = document.getElementById('suggestion-input');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    const btn = document.getElementById('suggestion-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    await fetch(`${SUPABASE_URL}/rest/v1/suggestions`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal'
+      },
+      body: JSON.stringify({ message: msg })
+    });
+
+    input.value = '';
+    btn.textContent = 'Send →';
+    btn.disabled = false;
+    document.getElementById('suggestion-success').style.display = 'block';
+    setTimeout(() => document.getElementById('suggestion-success').style.display = 'none', 3000);
+    loadSuggestions();
   });
 </script>
 
