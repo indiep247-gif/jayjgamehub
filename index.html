@@ -20,9 +20,17 @@
       padding: 48px 20px 60px;
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 48px;
+    /* ── HEADER ── */
+    header { text-align: center; margin-bottom: 48px; }
+
+    .site-icon {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #fff;
+      box-shadow: 0 4px 0 #ddd6ce, 0 6px 20px rgba(0,0,0,0.1);
+      margin-bottom: 16px;
     }
 
     .logo {
@@ -32,7 +40,6 @@
       letter-spacing: -1px;
       line-height: 1;
     }
-
     .logo span { color: #e8401c; }
 
     .sub {
@@ -44,6 +51,7 @@
       text-transform: uppercase;
     }
 
+    /* ── GRID ── */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
@@ -53,6 +61,7 @@
       max-width: 1040px;
     }
 
+    /* ── CARDS ── */
     .card {
       background: #fff;
       border-radius: 20px;
@@ -62,7 +71,6 @@
       box-shadow: 0 4px 0 #ddd6ce, 0 6px 20px rgba(0,0,0,0.06);
       transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s;
     }
-
     .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 0 #ddd6ce, 0 14px 30px rgba(0,0,0,0.1);
@@ -73,42 +81,15 @@
     .c2 .card-strip { background: #0a9e88; }
     .c3 .card-strip { background: #f5a623; }
 
-    .card-emoji {
-      font-size: 56px;
-      text-align: center;
-      padding: 28px 20px 16px;
-      line-height: 1;
-    }
+    .card-emoji { font-size: 56px; text-align: center; padding: 28px 20px 16px; line-height: 1; }
 
-    .card-body {
-      padding: 0 24px 24px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
+    .card-body { padding: 0 24px 24px; flex: 1; display: flex; flex-direction: column; }
 
-    .card-title {
-      font-family: 'Fredoka One', cursive;
-      font-size: 22px;
-      color: #1a1a2e;
-      margin-bottom: 6px;
-    }
+    .card-title { font-family: 'Fredoka One', cursive; font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
 
-    .card-author {
-      font-size: 12px;
-      font-weight: 700;
-      color: #bbb;
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
-    }
+    .card-author { font-size: 12px; font-weight: 700; color: #bbb; margin-bottom: 8px; letter-spacing: 0.5px; }
 
-    .card-desc {
-      font-size: 13.5px;
-      color: #999;
-      line-height: 1.6;
-      flex: 1;
-      margin-bottom: 18px;
-    }
+    .card-desc { font-size: 13.5px; color: #999; line-height: 1.6; flex: 1; margin-bottom: 18px; }
 
     .counter-row {
       display: flex;
@@ -119,15 +100,7 @@
       border-radius: 10px;
       padding: 8px 12px;
     }
-
-    .counter-label {
-      font-size: 12px;
-      font-weight: 700;
-      color: #bbb;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-    }
-
+    .counter-label { font-size: 12px; font-weight: 700; color: #bbb; text-transform: uppercase; letter-spacing: 1.5px; }
     .counter-val {
       font-family: 'Fredoka One', cursive;
       font-size: 16px;
@@ -138,7 +111,6 @@
       transition: transform 0.15s cubic-bezier(0.34,1.56,0.64,1);
       display: inline-block;
     }
-
     .counter-val.pop { transform: scale(1.4); }
 
     .btn {
@@ -157,29 +129,66 @@
     }
     .btn:hover { filter: brightness(1.08); }
     .btn:active { transform: scale(0.97); }
-
     .c1 .btn { background: #e8401c; color: #fff; }
     .c2 .btn { background: #0a9e88; color: #fff; }
     .c3 .btn { background: #f5a623; color: #fff; }
 
-    footer {
-      margin-top: 56px;
-      font-size: 12px;
-      color: #ccc;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-align: center;
-    }
+    /* ── SUGGESTIONS ── */
+    .suggestions-wrap { width: 100%; max-width: 600px; margin: 48px auto 0; }
+    .suggestions-title { font-family: 'Fredoka One', cursive; font-size: 26px; color: #1a1a2e; text-align: center; margin-bottom: 6px; }
+    .suggestions-sub { font-size: 13px; color: #aaa; text-align: center; margin-bottom: 24px; font-weight: 600; }
 
-    .site-icon {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid #fff;
-      box-shadow: 0 4px 0 #ddd6ce, 0 6px 20px rgba(0,0,0,0.1);
-      margin-bottom: 16px;
+    .suggestions-form {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 4px 0 #ddd6ce, 0 6px 20px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
+    .suggestions-form textarea {
+      width: 100%;
+      border: 2px solid #f0ebe4;
+      border-radius: 12px;
+      padding: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      color: #1a1a2e;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+      background: #faf8f5;
+      min-height: 100px;
+    }
+    .suggestions-form textarea:focus { border-color: #e8401c; }
+    .suggestions-form textarea::placeholder { color: #ccc; }
+    .suggestions-form button {
+      align-self: flex-end;
+      background: #e8401c;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      transition: filter 0.15s, transform 0.1s;
+    }
+    .suggestions-form button:hover { filter: brightness(1.1); }
+    .suggestions-form button:active { transform: scale(0.97); }
+    .suggestions-form button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .suggestions-success { text-align: center; font-weight: 700; color: #0a9e88; font-size: 14px; display: none; }
+    .suggestions-list { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .suggestion-item { background: #fff; border-radius: 12px; padding: 14px 18px; font-size: 13.5px; color: #555; box-shadow: 0 2px 0 #ddd6ce, 0 3px 10px rgba(0,0,0,0.04); line-height: 1.5; }
+    .suggestion-item .s-date { font-size: 11px; color: #ccc; font-weight: 700; margin-top: 6px; }
+
+    /* ── FOOTER ── */
+    footer { margin-top: 56px; font-size: 12px; color: #ccc; font-weight: 600; letter-spacing: 1px; text-align: center; }
+
+    /* ── MUSIC BAR ── */
+    .music-bar {
       position: fixed;
       bottom: 24px;
       right: 24px;
@@ -192,7 +201,6 @@
       box-shadow: 0 4px 0 #ddd6ce, 0 6px 20px rgba(0,0,0,0.1);
       z-index: 999;
     }
-
     .music-btn {
       width: 38px;
       height: 38px;
@@ -208,11 +216,9 @@
       transition: transform 0.15s, filter 0.15s;
     }
     .music-btn:hover { filter: brightness(1.1); transform: scale(1.08); }
-
     .music-info { display: flex; flex-direction: column; }
     .music-title { font-family: 'Fredoka One', cursive; font-size: 13px; color: #1a1a2e; line-height: 1; }
     .music-sub { font-size: 10px; color: #bbb; font-weight: 600; letter-spacing: 1px; margin-top: 2px; }
-
     .music-bars { display: flex; align-items: flex-end; gap: 2px; height: 16px; margin-left: 4px; }
     .music-bars span { display: block; width: 3px; background: #e8401c; border-radius: 2px; opacity: 0.4; height: 4px; }
     .music-bars.playing span { opacity: 1; }
@@ -222,106 +228,27 @@
     .music-bars.playing span:nth-child(4) { animation: bar 0.8s ease-in-out infinite 0.45s; }
     @keyframes bar { 0%,100% { height: 4px; } 50% { height: 14px; } }
 
-    /* ── SUGGESTIONS ── */
-    .suggestions-wrap {
-      width: 100%;
-      max-width: 600px;
-      margin: 48px auto 0;
+    /* ── DANCE VIDEOS ── */
+    .dance-video {
+      position: fixed;
+      bottom: 80px;
+      width: 160px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+      pointer-events: none;
+      z-index: 998;
     }
-
-    .suggestions-title {
-      font-family: 'Fredoka One', cursive;
-      font-size: 26px;
-      color: #1a1a2e;
-      text-align: center;
-      margin-bottom: 6px;
+    .dance-video.show {
+      opacity: 1;
+      transform: translateY(0);
     }
-
-    .suggestions-sub {
-      font-size: 13px;
-      color: #aaa;
-      text-align: center;
-      margin-bottom: 24px;
-      font-weight: 600;
-    }
-
-    .suggestions-form {
-      background: #fff;
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: 0 4px 0 #ddd6ce, 0 6px 20px rgba(0,0,0,0.06);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .suggestions-form textarea {
-      width: 100%;
-      border: 2px solid #f0ebe4;
-      border-radius: 12px;
-      padding: 14px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 14px;
-      color: #1a1a2e;
-      resize: none;
-      outline: none;
-      transition: border-color 0.2s;
-      background: #faf8f5;
-      min-height: 100px;
-    }
-
-    .suggestions-form textarea:focus { border-color: #e8401c; }
-    .suggestions-form textarea::placeholder { color: #ccc; }
-
-    .suggestions-form button {
-      align-self: flex-end;
-      background: #e8401c;
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      padding: 12px 24px;
-      font-family: 'Nunito', sans-serif;
-      font-weight: 800;
-      font-size: 14px;
-      cursor: pointer;
-      transition: filter 0.15s, transform 0.1s;
-    }
-
-    .suggestions-form button:hover { filter: brightness(1.1); }
-    .suggestions-form button:active { transform: scale(0.97); }
-    .suggestions-form button:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    .suggestions-success {
-      text-align: center;
-      font-weight: 700;
-      color: #0a9e88;
-      font-size: 14px;
-      display: none;
-    }
-
-    .suggestions-list {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .suggestion-item {
-      background: #fff;
-      border-radius: 12px;
-      padding: 14px 18px;
-      font-size: 13.5px;
-      color: #555;
-      box-shadow: 0 2px 0 #ddd6ce, 0 3px 10px rgba(0,0,0,0.04);
-      line-height: 1.5;
-    }
-
-    .suggestion-item .s-date {
-      font-size: 11px;
-      color: #ccc;
-      font-weight: 700;
-      margin-top: 6px;
-    }
+    .dance-video video { width: 100%; display: block; }
+    .dance-left { left: 24px; }
+    .dance-right { right: 100px; }
   </style>
 </head>
 <body>
@@ -400,10 +327,18 @@
 
 <footer>jayj game hub &nbsp;·&nbsp; all games in one place</footer>
 
-<audio id="bg-music" loop>
-  <source src="./music.mp3" type="audio/mpeg">
-</audio>
+<!-- Dance videos -->
+<div class="dance-video dance-left" id="dance-left">
+  <video src="./dance.mp4" muted loop playsinline></video>
+</div>
+<div class="dance-video dance-right" id="dance-right">
+  <video src="./dance.mp4" muted loop playsinline></video>
+</div>
 
+<!-- Audio -->
+<audio id="bg-music" src="./music.mp3" loop></audio>
+
+<!-- Music player -->
 <div class="music-bar">
   <button class="music-btn" id="music-btn" title="Play/Pause">▶</button>
   <div class="music-info">
@@ -419,6 +354,7 @@
   const SUPABASE_URL = 'https://iwmankitmliqygcxjxhe.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_DOyBW9VIwbwNtbRbNJZN3g_fwqRHnwi';
 
+  // ── Counts ──
   async function fetchCounts() {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/clicks?select=game,count`, {
       headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
@@ -431,37 +367,25 @@
   }
 
   async function incrementCount(game) {
-    // Fetch current count first
     const res = await fetch(`${SUPABASE_URL}/rest/v1/clicks?game=eq.${game}&select=count`, {
       headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
     });
     const rows = await res.json();
-    const current = rows[0]?.count ?? 0;
-    const newVal = current + 1;
-
+    const newVal = (rows[0]?.count ?? 0) + 1;
     await fetch(`${SUPABASE_URL}/rest/v1/clicks?game=eq.${game}`, {
       method: 'PATCH',
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        Prefer: 'return=minimal'
-      },
+      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
       body: JSON.stringify({ count: newVal })
     });
-
     return newVal;
   }
 
-  // Load counts on page load
   fetchCounts();
 
-  // Increment on click
   document.querySelectorAll('.btn[data-game]').forEach(btn => {
     btn.addEventListener('click', async () => {
       const game = btn.dataset.game;
       const newVal = await incrementCount(game);
-
       const el = document.getElementById('count-' + game);
       el.textContent = newVal;
       el.classList.remove('pop');
@@ -471,38 +395,45 @@
     });
   });
 
-  // Music player
+  // ── Music + Dance ──
   const audio = document.getElementById('bg-music');
   const musicBtn = document.getElementById('music-btn');
   const musicBars = document.getElementById('music-bars');
+  const danceLeft = document.getElementById('dance-left');
+  const danceRight = document.getElementById('dance-right');
+  const danceVidLeft = danceLeft.querySelector('video');
+  const danceVidRight = danceRight.querySelector('video');
 
-  audio.addEventListener('error', (e) => {
-    musicBtn.textContent = '❌';
-    console.error('Audio error:', audio.error);
-    alert('Audio error: ' + (audio.error ? audio.error.message : 'unknown') + ' | src: ' + audio.currentSrc);
-  });
+  function startDance() {
+    danceLeft.classList.add('show');
+    danceRight.classList.add('show');
+    danceVidLeft.play();
+    danceVidRight.play();
+  }
 
-  audio.addEventListener('canplaythrough', () => {
-    console.log('Audio ready to play');
-  });
+  function stopDance() {
+    danceLeft.classList.remove('show');
+    danceRight.classList.remove('show');
+    danceVidLeft.pause();
+    danceVidRight.pause();
+  }
 
   musicBtn.addEventListener('click', () => {
-    console.log('Click — paused:', audio.paused, 'src:', audio.currentSrc, 'readyState:', audio.readyState);
     if (audio.paused) {
       audio.play().then(() => {
         musicBtn.textContent = '⏸';
         musicBars.classList.add('playing');
-      }).catch(err => {
-        alert('Play failed: ' + err.message);
-        console.error('Play error:', err);
-      });
+        startDance();
+      }).catch(err => console.error('Play error:', err));
     } else {
       audio.pause();
       musicBtn.textContent = '▶';
       musicBars.classList.remove('playing');
+      stopDance();
     }
   });
-  // Suggestions
+
+  // ── Suggestions ──
   async function loadSuggestions() {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/suggestions?select=message,created_at&order=created_at.desc&limit=10`, {
       headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
@@ -525,22 +456,14 @@
     const input = document.getElementById('suggestion-input');
     const msg = input.value.trim();
     if (!msg) return;
-
     const btn = document.getElementById('suggestion-btn');
     btn.disabled = true;
     btn.textContent = 'Sending...';
-
     await fetch(`${SUPABASE_URL}/rest/v1/suggestions`, {
       method: 'POST',
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        Prefer: 'return=minimal'
-      },
+      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
       body: JSON.stringify({ message: msg })
     });
-
     input.value = '';
     btn.textContent = 'Send →';
     btn.disabled = false;
@@ -549,6 +472,5 @@
     loadSuggestions();
   });
 </script>
-
 </body>
 </html>
