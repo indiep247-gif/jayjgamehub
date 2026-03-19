@@ -393,6 +393,27 @@
   const SUPABASE_URL = 'https://iwmankitmliqygcxjxhe.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_DOyBW9VIwbwNtbRbNJZN3g_fwqRHnwi';
 
+  // ── Visitor Logging ──
+  async function logVisitor() {
+    try {
+      const ipRes = await fetch('https://api.ipify.org?format=json');
+      const ipData = await ipRes.json();
+      const ua = navigator.userAgent;
+      let device = 'Desktop';
+      if (/iPhone|iPad|iPod/i.test(ua)) device = 'iOS';
+      else if (/Android/i.test(ua)) device = 'Android';
+      else if (/Macintosh/i.test(ua)) device = 'Mac';
+      else if (/Windows/i.test(ua)) device = 'Windows';
+      else if (/Linux/i.test(ua)) device = 'Linux';
+      await fetch(`${SUPABASE_URL}/rest/v1/visitors`, {
+        method: 'POST',
+        headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+        body: JSON.stringify({ ip: ipData.ip, device, user_agent: ua })
+      });
+    } catch (e) { console.warn('Visitor log failed:', e); }
+  }
+  logVisitor();
+
   // ── Counts ──
   async function fetchCounts() {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/clicks?select=game,count`, {
