@@ -356,7 +356,8 @@
   <div class="suggestions-title">💬 Suggestions</div>
   <div class="suggestions-sub">Got an idea? Let us know!</div>
   <div class="suggestions-form">
-    <textarea id="suggestion-input" placeholder="Suggest a game, report a bug, or just say hi..."></textarea>
+    <textarea id="suggestion-input" placeholder="Suggest a game, report a bug, or just say hi..." maxlength="200"></textarea>
+    <div id="char-counter" style="font-size:12px;color:#bbb;font-weight:700;text-align:right;margin-top:-4px;">0 / 200</div>
     <button id="suggestion-btn">Send →</button>
     <div class="suggestions-success" id="suggestion-success">✅ Thanks for your suggestion!</div>
   </div>
@@ -472,6 +473,19 @@
   });
 
   // ── Suggestions ──
+  const BAD_WORDS = ['fuck','shit','bitch','cunt','asshole','bastard','dick','cock','pussy','nigger','nigga','faggot','fag','whore','slut','twat','wanker','prick','arse','bollocks','damn','crap','ass'];
+  function containsProfanity(text) {
+    const lower = text.toLowerCase().replace(/[^a-z0-9\s]/g, '');
+    return BAD_WORDS.some(w => new RegExp(`\\b${w}\\b`).test(lower));
+  }
+
+  const suggestionInput = document.getElementById('suggestion-input');
+  const charCounter = document.getElementById('char-counter');
+  suggestionInput.addEventListener('input', () => {
+    const len = suggestionInput.value.length;
+    charCounter.textContent = `${len} / 200`;
+    charCounter.style.color = len >= 180 ? '#e8401c' : '#bbb';
+  });
   async function loadSuggestions() {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/suggestions?select=message,created_at&order=created_at.desc&limit=10`, {
       headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
@@ -494,6 +508,15 @@
     const input = document.getElementById('suggestion-input');
     const msg = input.value.trim();
     if (!msg) return;
+    if (msg.length > 200) return;
+    if (containsProfanity(msg)) {
+      const err = document.getElementById('suggestion-success');
+      err.textContent = '🚫 Keep it clean please!';
+      err.style.color = '#e8401c';
+      err.style.display = 'block';
+      setTimeout(() => { err.style.display = 'none'; err.style.color = '#0a9e88'; err.textContent = '✅ Thanks for your suggestion!'; }, 3000);
+      return;
+    }
     const btn = document.getElementById('suggestion-btn');
     btn.disabled = true;
     btn.textContent = 'Sending...';
