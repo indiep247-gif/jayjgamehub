@@ -253,6 +253,136 @@
     .dance-video video { width: 100%; display: block; }
     .dance-left { left: 24px; }
     .dance-right { right: 100px; }
+
+    /* ── MC SERVER TAB ── */
+    .mc-tab-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: #2d7d32;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 0 #1b5e20, 0 6px 20px rgba(0,0,0,0.18);
+      transition: filter 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .mc-tab-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+    .mc-tab-btn:active { transform: scale(0.97); }
+    .mc-tab-new {
+      background: #ffeb3b;
+      color: #1b5e20;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 7px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      animation: pulse-new 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-new { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
+
+    /* ── MC MODAL ── */
+    .mc-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1100;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .mc-overlay.open { opacity: 1; pointer-events: all; }
+    .mc-modal {
+      background: #fff;
+      border-radius: 24px;
+      padding: 32px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 8px 0 #ddd6ce, 0 16px 40px rgba(0,0,0,0.2);
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+      position: relative;
+    }
+    .mc-overlay.open .mc-modal { transform: translateY(0) scale(1); }
+    .mc-modal-close {
+      position: absolute; top: 16px; right: 18px;
+      background: #f7f3ee; border: none; border-radius: 50%;
+      width: 32px; height: 32px; font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #999; transition: background 0.15s;
+    }
+    .mc-modal-close:hover { background: #ede8e1; }
+    .mc-modal-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+    }
+    .mc-modal-icon { font-size: 40px; line-height: 1; }
+    .mc-modal-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 22px; color: #1a1a2e; line-height: 1.1;
+    }
+    .mc-modal-title small {
+      display: block; font-family: 'Nunito', sans-serif;
+      font-size: 12px; font-weight: 700; color: #aaa;
+      letter-spacing: 2px; text-transform: uppercase; margin-top: 3px;
+    }
+    .mc-section {
+      background: #f7f3ee;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+    }
+    .mc-section:last-of-type { margin-bottom: 0; }
+    .mc-section-label {
+      font-family: 'Fredoka One', cursive;
+      font-size: 16px;
+      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .mc-badge {
+      font-family: 'Nunito', sans-serif;
+      font-size: 10px; font-weight: 900;
+      padding: 2px 8px; border-radius: 20px;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .badge-bedrock { background: #e3f2fd; color: #1565c0; }
+    .badge-java { background: #fce4ec; color: #c62828; }
+    .mc-row {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 8px;
+      font-size: 13px;
+    }
+    .mc-row:last-child { margin-bottom: 0; }
+    .mc-row-label { font-weight: 700; color: #aaa; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; min-width: 48px; }
+    .mc-val {
+      font-family: 'Fredoka One', cursive;
+      font-size: 14px; color: #1a1a2e;
+      background: #fff; border-radius: 8px;
+      padding: 5px 10px; cursor: pointer;
+      transition: background 0.15s;
+    }
+    .mc-val:hover { background: #e8f5e9; }
+    .mc-val::after { content: ' 📋'; font-size: 11px; opacity: 0.5; }
+    .mc-copy-tip {
+      font-size: 11px; color: #2d7d32; font-weight: 700;
+      text-align: center; margin-top: 16px; height: 16px;
+      transition: opacity 0.3s; opacity: 0;
+    }
+    .mc-copy-tip.show { opacity: 1; }
+    .mc-or {
+      text-align: center; font-size: 11px; font-weight: 700;
+      color: #ccc; letter-spacing: 2px; text-transform: uppercase;
+      margin: 8px 0;
+    }
   </style>
 </head>
 <body>
@@ -372,6 +502,42 @@
 </div>
 <div class="dance-video dance-right" id="dance-right">
   <video src="./dance.mp4" muted loop playsinline></video>
+</div>
+
+<!-- MC Server Tab Button -->
+<button class="mc-tab-btn" id="mc-tab-btn">
+  <span>⛏️ Minecraft Server</span>
+  <span class="mc-tab-new">NEW</span>
+</button>
+
+<!-- MC Server Modal -->
+<div class="mc-overlay" id="mc-overlay">
+  <div class="mc-modal">
+    <button class="mc-modal-close" id="mc-close">✕</button>
+    <div class="mc-modal-header">
+      <div class="mc-modal-icon">🟩</div>
+      <div class="mc-modal-title">
+        JayJ MC Server
+        <small>Bedrock &amp; Java · Join Now</small>
+      </div>
+    </div>
+    <div class="mc-section">
+      <div class="mc-section-label">⛏️ Bedrock <span class="mc-badge badge-bedrock">BEDROCK</span></div>
+      <div class="mc-row"><span class="mc-row-label">IP</span><span class="mc-val" onclick="copyMC('bedrock.jayjgamehub.uk')">bedrock.jayjgamehub.uk</span></div>
+      <div class="mc-row"><span class="mc-row-label">Port</span><span class="mc-val" onclick="copyMC('9374')">9374</span></div>
+      <div class="mc-or">— or —</div>
+      <div class="mc-row"><span class="mc-row-label">IP</span><span class="mc-val" onclick="copyMC('voice-wellness.gl.at.ply.gg')">voice-wellness.gl.at.ply.gg</span></div>
+      <div class="mc-row"><span class="mc-row-label">Port</span><span class="mc-val" onclick="copyMC('19132')">19132</span></div>
+    </div>
+    <div class="mc-section">
+      <div class="mc-section-label">☕ Java <span class="mc-badge badge-java">JAVA</span></div>
+      <div class="mc-row"><span class="mc-row-label">IP</span><span class="mc-val" onclick="copyMC('java.jayjgamehub.uk')">java.jayjgamehub.uk</span></div>
+      <div class="mc-row"><span class="mc-row-label">Port</span><span class="mc-val" onclick="copyMC('25565')">25565</span></div>
+      <div class="mc-or">— or —</div>
+      <div class="mc-row"><span class="mc-row-label">IP</span><span class="mc-val" onclick="copyMC('latest-dell.gl.joinmc.link')">latest-dell.gl.joinmc.link</span></div>
+    </div>
+    <div class="mc-copy-tip" id="mc-copy-tip">✅ Copied to clipboard!</div>
+  </div>
 </div>
 
 <!-- Audio -->
@@ -552,6 +718,25 @@
     document.getElementById('suggestion-success').style.display = 'block';
     setTimeout(() => document.getElementById('suggestion-success').style.display = 'none', 3000);
     loadSuggestions();
+  });
+  // ── MC Server Modal ──
+  function copyMC(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const tip = document.getElementById("mc-copy-tip");
+      tip.classList.add("show");
+      setTimeout(() => tip.classList.remove("show"), 2000);
+    });
+  }
+  document.getElementById("mc-tab-btn").addEventListener("click", () => {
+    document.getElementById("mc-overlay").classList.add("open");
+  });
+  document.getElementById("mc-close").addEventListener("click", () => {
+    document.getElementById("mc-overlay").classList.remove("open");
+  });
+  document.getElementById("mc-overlay").addEventListener("click", (e) => {
+    if (e.target === document.getElementById("mc-overlay")) {
+      document.getElementById("mc-overlay").classList.remove("open");
+    }
   });
 </script>
 </body>
